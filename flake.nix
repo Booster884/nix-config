@@ -25,5 +25,11 @@
           modules = [ overlayModule ./hosts/${host}/configuration.nix ];
         };
       }) hostnames);
+
+      nixosModules.default = {
+        imports = [
+          ./modules/user.nix
+        ];
+      };
     };
 }
