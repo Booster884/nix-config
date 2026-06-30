@@ -18,6 +18,8 @@
 
   fonts.packages = with pkgs; [
     liberation_ttf
+    noto-fonts-cjk-sans
+
     jetbrains-mono
     nerd-fonts.jetbrains-mono
     iosevka-bin
