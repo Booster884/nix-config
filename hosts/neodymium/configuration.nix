@@ -12,6 +12,15 @@
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
+  # CUDA cache
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos-cuda.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+    ];
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -36,15 +45,13 @@
   # Enable OpenGL
   hardware.graphics.enable = true;
 
-  # services.xserver.videoDrivers = ["nvidia"];
-  # hardware.nvidia = {
-  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #   modesetting.enable = true;
-  #   powerManagement.enable = false;
-  #   powerManagement.finegrained = false;
-  #   open = false;
-  #   nvidiaSettings = true;
-  # };
+  # Use proprietary nvidia drivers
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    powerManagement.enable = true;
+  };
 
   services.syncthing = {
     enable = true;
