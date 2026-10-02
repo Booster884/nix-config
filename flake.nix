@@ -22,7 +22,10 @@
         name = host;
         value = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = [ overlayModule ./hosts/${host}/configuration.nix ];
+          modules = [
+            overlayModule ./hosts/${host}/configuration.nix
+            { system.configurationRevision = self.rev or "dirty"; }
+          ];
         };
       }) hostnames);
 
